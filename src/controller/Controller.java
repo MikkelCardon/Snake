@@ -2,6 +2,8 @@ package controller;
 
 import application.elements.Board;
 import application.elements.Cell;
+import application.elements.snake.Node;
+import application.elements.snake.Snake;
 import javafx.scene.shape.Box;
 
 public class Controller {
@@ -14,7 +16,7 @@ public class Controller {
     }
 
     public static Cell returnCellByCoordinates(int x, int y){
-        return board.getCells()[x][y];
+        return board.getCellsAs2DArray()[x][y];
     }
 
     public static Board getBoard() {
@@ -22,9 +24,14 @@ public class Controller {
     }
 
     public static void setBoxes(Box[] boxes) {
-        this.boxes = boxes;
+        Controller.boxes = boxes;
     }
+
     public static Box[] getBoxes() {
         return boxes;
+    }
+
+    public static Node getSnakeHead() {
+        return Snake.getHead();
     }
 }
