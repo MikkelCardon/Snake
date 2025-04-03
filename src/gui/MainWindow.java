@@ -1,6 +1,8 @@
 package gui;
 
 import application.elements.Board;
+import application.elements.Cell;
+import application.logic.GameLogic;
 import application.logic.KeyPressed;
 import controller.Controller;
 import javafx.application.Application;
@@ -25,11 +27,13 @@ public class MainWindow extends Application {
 
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Snake Game");
+
+        GameLogic gameLogic = new GameLogic();
     }
 
     private void initlayout(GridPane gridPane) {
         int count = 0;
-        Box[] boxes = new Box[15 * 15];
 
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
@@ -37,13 +41,33 @@ public class MainWindow extends Application {
                 box.setHeight(50);
                 box.setWidth(50);
                 box.setStyle("-fx-border-color: black; -fx-border-width: 1;");
-                box.setMaterial(new PhongMaterial(count % 2 == 0 ? Color.MEDIUMSEAGREEN : Color.LIGHTGREEN));
+                PhongMaterial color = new PhongMaterial(count++ % 2 == 0 ? Color.MEDIUMSEAGREEN : Color.LIGHTGREEN);
+                box.setMaterial(color);
+                box.setUserData(color);
                 gridPane.add(box,x,y);
 
-                box.setUserData(Controller.returnCellByCoordinates(x, y));
-                boxes[count++] = box;
+                Cell cell = new Cell(x, y, box);
+                board.getCellsAs2DArray()[x][y] = cell;
+                setChangeListener(cell);
             }
         }
-        Controller.setBoxes(boxes);
+    }
+
+    private void setChangeListener(Cell cell) {
+        cell.isSnakeProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                cell.getBox().setMaterial(new PhongMaterial(Color.PINK));
+            } else {
+                cell.getBox().setMaterial((PhongMaterial) cell.getBox().getUserData());
+            }
+        });
+
+        cell.hasFood().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                cell.getBox().setMaterial(new PhongMaterial(Color.RED));
+            } else {
+                cell.getBox().setMaterial((PhongMaterial) cell.getBox().getUserData());
+            }
+        });
     }
 }
