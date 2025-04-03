@@ -31,4 +31,12 @@ public class Cell {
     public void setHasSnake(boolean hasSnake) {
         this.isSnake.set(hasSnake);
     }
+
+    public boolean isIsSnake() {
+        return isSnake.get();
+    }
+
+    public SimpleBooleanProperty isSnakeProperty() {
+        return isSnake;
+    }
 }
