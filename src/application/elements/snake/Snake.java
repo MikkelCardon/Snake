@@ -3,11 +3,9 @@ package application.elements.snake;
 import application.elements.Cell;
 import controller.Controller;
 
-import java.util.LinkedList;
-
-public class Snake extends LinkedList<Node> {
-    private Node head;
-    private Node tail;
+public class Snake {
+    private static Node head;
+    private static Node tail;
 
     public Snake() {
         Node startNode = new Node(Controller.returnCellByCoordinates(7, 7));
@@ -17,5 +15,9 @@ public class Snake extends LinkedList<Node> {
 
     public void setHeadCell(Cell cell) {
         this.head.setCell(cell);
+    }
+
+    public static Node getHead() {
+        return head;
     }
 }
