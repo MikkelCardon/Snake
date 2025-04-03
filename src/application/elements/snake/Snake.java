@@ -8,8 +8,7 @@ public class Snake {
     private static Node tail;
 
     public Snake() {
-        Node startNode = new Node(Controller.returnCellByCoordinates(7, 7));
-        this.head = null;
+        this.head = new Node(Controller.returnCellByCoordinates(7, 7));
         this.tail = null;
     }
 
@@ -20,4 +19,5 @@ public class Snake {
     public static Node getHead() {
         return head;
     }
+
 }

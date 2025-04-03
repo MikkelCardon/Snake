@@ -16,7 +16,7 @@ public class Controller {
     }
 
     public static Cell returnCellByCoordinates(int x, int y){
-        return board.getCells()[x][y];
+        return board.getCellsAs2DArray()[x][y];
     }
 
     public static Board getBoard() {
@@ -31,7 +31,7 @@ public class Controller {
         return boxes;
     }
 
-    public static Node getSnake() {
+    public static Node getSnakeHead() {
         return Snake.getHead();
     }
 }
