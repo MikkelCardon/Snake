@@ -4,15 +4,17 @@ import application.elements.Cell;
 import application.elements.snake.Node;
 import application.elements.snake.Snake;
 import controller.Controller;
+import gui.MainWindow;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-import java.security.Key;
 import java.util.Random;
 
 public class GameLogic {
     private static Snake snake;
+    private static boolean gameOver = false;
 
     public GameLogic() {
         snake = new Snake();
@@ -21,7 +23,11 @@ public class GameLogic {
     }
 
     public static void startGame() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), event -> {
+            if (gameOver) {
+                displayGameOver();
+                return;
+            }
             nextCell();
         }));
 
@@ -43,10 +49,26 @@ public class GameLogic {
 
         Node currentNode = snake.getHead();
         Cell currentHeadCell = currentNode.getCell();
-        //ToDo check if the new cell is out of bounds
+
+        if (outOfBounds(currentHeadCell, direction)){
+            return;
+        }
+
         Cell newCell = Controller.returnCellByCoordinates(currentHeadCell.getX()+ direction.getX(), currentHeadCell.getY()+ direction.getY());
 
         checkCollision(newCell);
+    }
+
+    private static boolean outOfBounds(Cell currentHeadCell, Direction direction) {
+        int x = currentHeadCell.getX() + direction.getX();
+        int y = currentHeadCell.getY() + direction.getY();
+
+        if (x < 0 || x >= 15 || y < 0 || y >= 15) {
+            System.out.println("Game Over");
+            gameOver = true;
+            return true;
+        }
+        return false;
     }
 
     public static void checkCollision(Cell newCell){
@@ -56,7 +78,7 @@ public class GameLogic {
             generateFood();
         }else if(newCell.isSnake()){
             System.out.println("Game Over");
-            //ToDo implement game over
+            gameOver = true;
         }else{
             updateSnake(false, newCell);
         }
@@ -80,6 +102,12 @@ public class GameLogic {
             currentNode.getCell().setHasSnake(false);
             previousNode.setNext(null);
         }
+    }
+
+    private static void displayGameOver(){
+        Label label = new Label("Game Over");
+        label.setStyle("-fx-font-size: 50px; -fx-text-fill: red;");
+        MainWindow.getStackPane().getChildren().add(label);
     }
 
 }
