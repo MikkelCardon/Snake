@@ -9,6 +9,7 @@ import javafx.scene.shape.Box;
 public class Controller {
     private static Board board;
     private static Box[] boxes;
+    private Snake snake;
 
     public static Board createNewGame(){
         board = new Board();
@@ -34,4 +35,5 @@ public class Controller {
     public static Node getSnakeHead() {
         return Snake.getHead();
     }
+
 }

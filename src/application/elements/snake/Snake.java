@@ -12,7 +12,7 @@ public class Snake {
         this.tail = null;
     }
 
-    public void setHeadCell(Cell cell) {
+    public static void setHeadCell(Cell cell) {
         this.head.setCell(cell);
     }
 
