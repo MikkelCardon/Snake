@@ -12,9 +12,10 @@ import java.security.Key;
 import java.util.Random;
 
 public class GameLogic {
+    private static Snake snake;
 
     public GameLogic() {
-        new Snake();
+        snake = new Snake();
         generateFood();
         startGame();
     }
@@ -40,14 +41,12 @@ public class GameLogic {
     public static void nextCell(){
         Direction direction = KeyPressed.getDirection();
 
-        Node currentNode = Snake.getHead();
+        Node currentNode = snake.getHead();
         Cell currentHeadCell = currentNode.getCell();
+        //ToDo check if the new cell is out of bounds
         Cell newCell = Controller.returnCellByCoordinates(currentHeadCell.getX()+ direction.getX(), currentHeadCell.getY()+ direction.getY());
-        currentHeadCell.setHasSnake(false);
 
-        currentNode.setCell(newCell);
         checkCollision(newCell);
-        newCell.setHasSnake(true);
     }
 
     public static void checkCollision(Cell newCell){
@@ -63,17 +62,24 @@ public class GameLogic {
         }
     }
 
-    private static void updateSnake(boolean eatFood, Cell newCell){ {
+    private static void updateSnake(boolean eatFood, Cell newCell){
         Node newNode = new Node(newCell);
-        newNode.setNext(Snake.getHead());
+        newNode.setNext(snake.getHead());
 
-        Snake.setHeadCell(newNode);
-    }
+        snake.setHeadCell(newNode);
+        newCell.setHasSnake(true);
 
+        if (!eatFood){
+            Node previousNode = null;
+            Node currentNode = snake.getHead();
 
-
-
-
+            while(currentNode.getNext() != null){
+                previousNode = currentNode;
+                currentNode = currentNode.getNext();
+            }
+            currentNode.getCell().setHasSnake(false);
+            previousNode.setNext(null);
+        }
     }
 
 }
