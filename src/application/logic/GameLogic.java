@@ -46,20 +46,34 @@ public class GameLogic {
         currentHeadCell.setHasSnake(false);
 
         currentNode.setCell(newCell);
+        checkCollision(newCell);
         newCell.setHasSnake(true);
     }
 
-    public static void checkCollision(){
-        Node currentNode = Snake.getHead();
-        Cell currentHeadCell = currentNode.getCell();
-        if(currentHeadCell.hasFood().getValue()){
-            currentHeadCell.setHasFood(false);
+    public static void checkCollision(Cell newCell){
+        if(newCell.hasFood().getValue()){
+            newCell.setHasFood(false);
+            updateSnake(true, newCell);
             generateFood();
-        }
-        if(currentHeadCell.isSnake()){
+        }else if(newCell.isSnake()){
             System.out.println("Game Over");
             //ToDo implement game over
+        }else{
+            updateSnake(false, newCell);
         }
+    }
+
+    private static void updateSnake(boolean eatFood, Cell newCell){ {
+        Node newNode = new Node(newCell);
+        newNode.setNext(Snake.getHead());
+
+        Snake.setHeadCell(newNode);
+    }
+
+
+
+
+
     }
 
 }
