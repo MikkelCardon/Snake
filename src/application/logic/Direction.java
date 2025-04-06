@@ -1,5 +1,7 @@
 package application.logic;
 
+import javafx.scene.input.KeyCode;
+
 public enum Direction {
     UP(0, -1),
     DOWN(0, 1),
@@ -20,5 +22,23 @@ public enum Direction {
 
     public int getY() {
         return y;
+    }
+
+    public javafx.scene.input.KeyCode getOpposite() {
+            switch (this) {
+                case UP -> {
+                    return KeyCode.DOWN;
+                }
+                case DOWN -> {
+                    return KeyCode.UP;
+                }
+                case LEFT -> {
+                    return KeyCode.RIGHT;
+                }
+                case RIGHT -> {
+                    return KeyCode.LEFT;
+                }
+            }
+            return null;
     }
 }

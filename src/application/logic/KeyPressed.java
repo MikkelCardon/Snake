@@ -13,6 +13,8 @@ public class KeyPressed {
     private static Direction direction = Direction.RIGHT;
 
     public static void keyPressed(KeyEvent event) {
+        if (direction.getOpposite() == event.getCode()) return; // Prevent moving in the opposite direction
+
         switch (event.getCode()) {
             case UP -> direction = Direction.UP;
             case DOWN -> direction = Direction.DOWN;
@@ -22,16 +24,6 @@ public class KeyPressed {
                 // Do nothing
             }
         }
-    }
-
-    public static void nextCell(){
-        Node currentNode = Snake.getHead();
-        Cell currentHeadCell = currentNode.getCell();
-        Cell newCell = Controller.returnCellByCoordinates(currentHeadCell.getX()+ direction.getX(), currentHeadCell.getY()+ direction.getY());
-        currentHeadCell.setHasSnake(false);
-
-        currentNode.setCell(newCell);
-        newCell.setHasSnake(true);
     }
 
     public static Direction getDirection() {
