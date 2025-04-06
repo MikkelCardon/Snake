@@ -8,6 +8,7 @@ import controller.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -16,12 +17,14 @@ import javafx.stage.Stage;
 
 public class MainWindow extends Application {
     private Board board;
+    private static StackPane stackPane = new StackPane();
     
     @Override
     public void start(Stage stage) throws Exception {
         board = Controller.createNewGame();
         GridPane gridPane = new GridPane();
-        Scene scene = new Scene(gridPane);
+        stackPane.getChildren().add(gridPane);
+        Scene scene = new Scene(stackPane);
         initlayout(gridPane);
         scene.setOnKeyPressed(KeyPressed::keyPressed);
 
@@ -69,5 +72,9 @@ public class MainWindow extends Application {
                 cell.getBox().setMaterial((PhongMaterial) cell.getBox().getUserData());
             }
         });
+    }
+
+    public static StackPane getStackPane() {
+        return stackPane;
     }
 }
