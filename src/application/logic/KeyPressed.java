@@ -13,6 +13,8 @@ public class KeyPressed {
     private static Direction direction = Direction.RIGHT;
 
     public static void keyPressed(KeyEvent event) {
+        if (direction.getOpposite() == event.getCode()) return; // Prevent moving in the opposite direction
+
         switch (event.getCode()) {
             case UP -> direction = Direction.UP;
             case DOWN -> direction = Direction.DOWN;
@@ -23,8 +25,6 @@ public class KeyPressed {
             }
         }
     }
-
-
 
     public static Direction getDirection() {
         return direction;
