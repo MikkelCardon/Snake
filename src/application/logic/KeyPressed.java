@@ -24,15 +24,7 @@ public class KeyPressed {
         }
     }
 
-    public static void nextCell(){
-        Node currentNode = Snake.getHead();
-        Cell currentHeadCell = currentNode.getCell();
-        Cell newCell = Controller.returnCellByCoordinates(currentHeadCell.getX()+ direction.getX(), currentHeadCell.getY()+ direction.getY());
-        currentHeadCell.setHasSnake(false);
 
-        currentNode.setCell(newCell);
-        newCell.setHasSnake(true);
-    }
 
     public static Direction getDirection() {
         return direction;
