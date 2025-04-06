@@ -1,6 +1,4 @@
 package application.elements.snake;
-
-import application.elements.Cell;
 import controller.Controller;
 
 public class Snake {

@@ -11,15 +11,5 @@ public class Board {
         return cells;
     }
 
-    public Cell[] getCellAsArray() {
-        Cell[] allCells = new Cell[15 * 15];
 
-        int index = 0;
-        for (Cell[] cell : cells) {
-            for (Cell cell1 : cell) {
-                allCells[index++] = cell1;
-            }
-        }
-        return allCells;
-    }
 }

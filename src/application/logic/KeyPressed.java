@@ -1,13 +1,8 @@
 package application.logic;
 
-import application.elements.Cell;
-import application.elements.snake.Node;
-import application.elements.snake.Snake;
-import controller.Controller;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
+
 
 public class KeyPressed {
     private static Direction direction = Direction.RIGHT;
