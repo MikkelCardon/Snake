@@ -2,13 +2,11 @@ package controller;
 
 import application.elements.Board;
 import application.elements.Cell;
-import application.elements.snake.Node;
 import application.elements.snake.Snake;
-import javafx.scene.shape.Box;
+
 
 public class Controller {
     private static Board board;
-    private static Box[] boxes;
     private static Snake snake;
 
     public static Board createNewGame(){
@@ -20,29 +18,11 @@ public class Controller {
         return board.getCellsAs2DArray()[x][y];
     }
 
-    public static Board getBoard() {
-        return board;
-    }
-
-    public static void setBoxes(Box[] boxes) {
-        Controller.boxes = boxes;
-    }
-
-    public static Box[] getBoxes() {
-        return boxes;
-    }
 
     /* SNAKE CONTROLLER*/
     public static void createSnake() {
         snake = new Snake();
     }
 
-    public static Node getSnakeHead() {
-        return snake.getHead();
-    }
-
-    public static void setHeadCell(Node node) {
-        snake.setHeadCell(node);
-    }
 
 }
